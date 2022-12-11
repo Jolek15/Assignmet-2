@@ -115,6 +115,12 @@ plt.figure()
 df_electric.plot(kind='bar',stacked=False,
     title='Access to Electricity of each country',
     width=0.5, figsize = (10,10))
+''' A function that produces a bar plot to show the access to electricity of each country from 2008 to 2014
+year: years ranging from 2008 - 2014
+title: Access to Electricity of each country
+labels:
+    xlabel: Country name, ylabel: Access to electricity rate.
+'''
 plt.xlabel('Country Name')
 plt.ylabel('Access to electricity rate')
 plt.legend(bbox_to_anchor=(1,1.01))
@@ -123,14 +129,20 @@ plt.show()
 
 #A bar plot showing electricity transmission and distribution loss rate for each country
 df_transmission.plot(kind='bar',stacked=False,
-    title='Electricity transmission loss rate of each country', figsize = (10,12))
-plt.xlabel('Countries')
+    title='Electricity transmission loss rate of each country', figsize = (10,15))
+''' A function that produces a bar plot to show electricity transmission loss rate of each country from 2008 to 2014
+year: years ranging from 2008 - 2014
+title: Electricity transmission loss rate of each country
+labels:
+    xaxes: Country name, yaxes: electricity transmission loss rate.
+'''
+plt.xlabel('Country name')
 plt.ylabel('Electricity transmission loss rate')
 plt.savefig('Elec Bar plot.png')
 plt.show()
 #A function called bar_chart_subplot using subplots to show electricity petroleum production rate of each country from 2008 to 2014
 def bar_chart_subplot(years,petrol, labels):
-    ''' A function that produces a bar subplot to show the electricity production from petroleum sources of each countries from 2008 to 2014
+    ''' A function that produces a bar subplot to show the electricity production from petroleum sources of each country from 2008 to 2014
     year: years ranging from 2008 - 2014
     petrol: production from petroleum sources of each country
     
@@ -138,7 +150,7 @@ def bar_chart_subplot(years,petrol, labels):
         xlabel: Years, ylabels: petrol electricity production rate.
     color: color of line plots
     '''
-  
+  #loop over the functions
     x = len(petrol)
     plt.figure(figsize=(22,8))
     for i in range(x):
@@ -158,9 +170,7 @@ petrol = [df_petrol_transpose['Australia'],df_petrol_transpose['Brazil'],df_petr
 labels = ["Australia petrol production rate", "Brazil petrol production rate", "Colombia petrol production rate", "France petrol production rate", "Japan petrol production rate", "Mexico petrol production rate", "Senegal petrol production rate", "United Kingdom petrol production rate"]
 bar_chart_subplot(years, petrol, labels)
 
-
-# In[ ]:
-
+#Creating a dataframe that contains Japan Eletricity production from Coal, Petroleum, Nuclear data and their transmission/distribution loss data.
 Japan = pd.DataFrame(
 {'Coal Production': df_coal_transpose['Japan'],
 'Petrol Production': df_petrol_transpose['Japan'],
@@ -168,33 +178,12 @@ Japan = pd.DataFrame(
 'Nuclear Production': df_nuclear_transpose['Japan']},
 ['2008','2009','2010','2011','2012','2013','2014'])
 
-
-
-# In[96]:
-
-Japan = pd.DataFrame(
-{'Coal Production': df_coal_transpose['Japan'],
-'Petrol Production': df_petrol_transpose['Japan'],
-'Transmission loss': df_transmission_transpose['Japan'],
-'Nuclear Production': df_nuclear_transpose['Japan']},
-['2008','2009','2010','2011','2012','2013','2014'])
-
-
-
-# In[ ]:
-
-
-Japan.corr()
-
-
-# In[ ]:
-
+#Using numpy to show the correlation between Japan Electricity production from coal and nuclear sources
 corr = np.corrcoef(Japan['Coal Production'], Japan['Nuclear Production'])
 
-corr
-
-# In[ ]:
-
+print(corr)
+#A correlation between Japan electricity production from coal, petroleum, nuclear sources and their transmission loss from 2008 to 2014.
+Japan.corr()
 
 
 
