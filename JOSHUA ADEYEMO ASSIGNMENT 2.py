@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
+#I import needed libraries
 
 import numpy as np
 import pandas as pd
@@ -10,7 +9,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def call_file(Electricity, sheet_name, countries):
-
+    
+    """
+    A function that reads in excel files in the world bank format and returns the original 
+    and transposed format. 
+    df: name of the dataframe
+    x: 1D array or dataseries with the x-values
+    columns: names of the columns in df to be plotted. Also used for the 
+            legend.
+    xlabel, ylabels: labels for x and y axis.
+    title: title for the plot
+    file: file name to store the plot as png file
+    """
     df_electric = pd.read_excel(Electricity, sheet_name, skiprows=3)
     df_electric = df_electric.drop(Cols, axis=1)
     df_electric = df_electric.drop('2021',axis = 1)
@@ -201,27 +211,37 @@ bar_chart_subplot(years, petrol, labels)
 
 # In[ ]:
 
-
+Japan = pd.DataFrame(
+{'Coal Production': df_coal_transpose['Japan'],
+'Petrol Production': df_petrol_transpose['Japan'],
+'Transmission loss': df_transmission_transpose['Japan'],
+'Nuclear Production': df_nuclear_transpose['Japan']},
+['2008','2009','2010','2011','2012','2013','2014'])
 
 
 
 # In[96]:
 
-
+Japan = pd.DataFrame(
+{'Coal Production': df_coal_transpose['Japan'],
+'Petrol Production': df_petrol_transpose['Japan'],
+'Transmission loss': df_transmission_transpose['Japan'],
+'Nuclear Production': df_nuclear_transpose['Japan']},
+['2008','2009','2010','2011','2012','2013','2014'])
 
 
 
 # In[ ]:
 
 
-
+Japan.corr()
 
 
 # In[ ]:
 
+corr = np.corrcoef(Japan['Coal Production'], Japan['Nuclear Production'])
 
-
-
+corr
 
 # In[ ]:
 
