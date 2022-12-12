@@ -150,7 +150,6 @@ def bar_chart_subplot(years,petrol, labels):
         xlabel: Years, ylabels: petrol electricity production rate.
     color: color of line plots
     '''
-  #loop over the functions
     x = len(petrol)
     plt.figure(figsize=(22,8))
     for i in range(x):
@@ -165,13 +164,13 @@ def bar_chart_subplot(years,petrol, labels):
 #Declaring values for the function    
 years = df_petrol_transpose.index
 petrol = [df_petrol_transpose['Australia'],df_petrol_transpose['Brazil'],df_petrol_transpose['Colombia'],
-    df_petrol_transpose['France'],df_petrol_transpose['Japan'],df_petrol_transpose['Mexico'],
-    df_petrol_transpose['Senegal'],df_petrol_transpose['United Kingdom']]
+     df_petrol_transpose['France'],df_petrol_transpose['Japan'],df_petrol_transpose['Mexico'],
+     df_petrol_transpose['Senegal'],df_petrol_transpose['United Kingdom']]
 labels = ["Australia petrol production rate", "Brazil petrol production rate", "Colombia petrol production rate", "France petrol production rate", "Japan petrol production rate", "Mexico petrol production rate", "Senegal petrol production rate", "United Kingdom petrol production rate"]
 bar_chart_subplot(years, petrol, labels)
 
 #Creating a dataframe that contains Japan Eletricity production from Coal, Petroleum, Nuclear data and their transmission/distribution loss data.
-Japan = pd.DataFrame(
+japan = pd.DataFrame(
 {'Coal Production': df_coal_transpose['Japan'],
 'Petrol Production': df_petrol_transpose['Japan'],
 'Transmission loss': df_transmission_transpose['Japan'],
@@ -179,19 +178,31 @@ Japan = pd.DataFrame(
 ['2008','2009','2010','2011','2012','2013','2014'])
 
 #Using numpy to show the correlation between Japan Electricity production from coal and nuclear sources
-corr = np.corrcoef(Japan['Coal Production'], Japan['Nuclear Production'])
+corr = np.corrcoef(japan['Coal Production'], japan['Nuclear Production'])
 
 print(corr)
 #A correlation between Japan electricity production from coal, petroleum, nuclear sources and their transmission loss from 2008 to 2014.
-Japan.corr()
+japan.corr()
 
+#Using Seaborn to plot a heat map of Japan's electricity production from coal, petroleum, nuclear sources and their transmission loss from 2008 to 2014.
+def corr_heatmap(data, title):
+    """A function that produces a correlation heatmap for japan's 
 
+    This function calculates the correlation between the columns in the
+    given data and plots a heatmap of the correlations.
 
+    Args:
+        data: A dataframe containing the data to plot.
+        title: The title to use for the plot.
+    """
+    corr = data.corr()
+    sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True)
+    
+    plt.title('Japan Correlation heatmap')
+    plt.figure(figsize=(8,8))
+    plt.show()
 
-# In[ ]:
-
-
-
+corr_heatmap(japan, title)
 
 
 # In[ ]:
