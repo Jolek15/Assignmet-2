@@ -8,7 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def call_file(electricity, sheet_name, countries):
+def call_file(Electricity, sheet_name, countries):
     
     """
     A function that reads in excel file in the world bank format and returns 
@@ -39,7 +39,6 @@ Coal = ('https://api.worldbank.org/v2/en/indicator/EG.ELC.COAL.ZS?downloadformat
 Nuclear = ('https://api.worldbank.org/v2/en/indicator/EG.ELC.NUCL.ZS?downloadformat=excel')
 Petrol = ('https://api.worldbank.org/v2/en/indicator/EG.ELC.PETR.ZS?downloadformat=excel')
 Transmission = ('https://api.worldbank.org/v2/en/indicator/EG.ELC.LOSS.ZS?downloadformat=excel')
-
 
 #stating our sheet name
 sheet_name = ('Data')
@@ -89,9 +88,9 @@ def plt_plot(year, prod, title, label, color, xaxes, yaxes):
     #loop over the columns
     for i in range(len(prod)):
         plt.plot(year, prod[i], label=label[i], color=color[i])
-    plt.title(title)
-    plt.xlabel(xaxes)
-    plt.ylabel(yaxes)
+    plt.title(title, fontsize=10)
+    plt.xlabel(xaxes, fontsize=12)
+    plt.ylabel(yaxes, fontsize=10)
     plt.legend(bbox_to_anchor=(1,1.01))
     plt.savefig('Lineplot.png')
     plt.show()
@@ -113,32 +112,38 @@ plt_plot(year, prod, title, label, color, xaxes, yaxes)
 #A bar plot showing the access to electricity of each country from 2008 t0 2014
 plt.figure()
 df_electric.plot(kind='bar',stacked=False,
-    title='Access to Electricity of each country',
-    width=0.5, figsize = (10,10))
+    width=0.8, figsize = (25,14))
 ''' A function that produces a bar plot to show the access to electricity of each country from 2008 to 2014
 year: years ranging from 2008 - 2014
 title: Access to Electricity of each country
 labels:
     xlabel: Country name, ylabel: Access to electricity rate.
 '''
-plt.xlabel('Country Name')
-plt.ylabel('Access to electricity rate')
-plt.legend(bbox_to_anchor=(1,1.01))
+plt.title('Access to Electricity of each country',fontsize=35)
+plt.xlabel('Country Name',fontsize=25)
+plt.ylabel('Access to electricity rate',fontsize=28)
+plt.legend(bbox_to_anchor=(1,1.01), fontsize=22)
+plt.yticks(fontsize=20)
+plt.xticks(fontsize=22)
 plt.savefig('Access Bar plot.png')
 plt.show()
 
 #A bar plot showing electricity transmission and distribution loss rate for each country
 df_transmission.plot(kind='bar',stacked=False,
-    title='Electricity transmission loss rate of each country', figsize = (10,15))
+     width=0.8, figsize = (24,15))
 ''' A function that produces a bar plot to show electricity transmission loss rate of each country from 2008 to 2014
 year: years ranging from 2008 - 2014
 title: Electricity transmission loss rate of each country
 labels:
     xaxes: Country name, yaxes: electricity transmission loss rate.
 '''
-plt.xlabel('Country name')
-plt.ylabel('Electricity transmission loss rate')
-plt.savefig('Elec Bar plot.png')
+plt.title('Electricity transmission loss rate of each country',fontsize=40)
+plt.xlabel('Country name',fontsize=35)
+plt.ylabel('Electricity transmission loss rate', fontsize=30)
+plt.yticks(fontsize=28)
+plt.xticks(fontsize=35)
+plt.legend(fontsize=24)
+plt.savefig('Elec Bar plot.png', dpi=300)
 plt.show()
 #A function called bar_chart_subplot using subplots to show electricity petroleum production rate of each country from 2008 to 2014
 def bar_chart_subplot(years,petrol, labels):
@@ -200,12 +205,11 @@ def corr_heatmap(data, title):
     
     plt.title('Japan Correlation heatmap')
     plt.figure(figsize=(8,8))
+    plt.savefig('Heatmap.png')
     plt.show()
 
 corr_heatmap(japan, title)
 
-
-# In[ ]:
 
 
 
