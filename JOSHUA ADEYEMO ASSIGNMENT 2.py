@@ -78,7 +78,7 @@ print(df_transmission_transpose)
 
 
 #Define a function called plt_plot to show the electricity production from coal sources for each country from 2008 to 2014
-def plt_plot(coal_year, coal_data, title, label, color, xaxes, yaxes):
+def plt_plot(year, data, title, label, color, xaxes, yaxes):
     ''' A function that produces a line plot to show the electricity production from coal sources of each countries from 2008 to 2014
     year: years ranging from 2008 - 2014
     prod: production from coal sources of each country
@@ -89,8 +89,8 @@ def plt_plot(coal_year, coal_data, title, label, color, xaxes, yaxes):
     '''
     plt.figure(figsize=(10,6))
     #loop over the columns
-    for i in range(len(coal_data)):
-        plt.plot(coal_year, coal_data[i], label=label[i], color=color[i])
+    for i in range(len(data)):
+        plt.plot(year, data[i], label=label[i], color=color[i])
     plt.title(title, fontsize=10)
     plt.xlabel(xaxes, fontsize=12)
     plt.ylabel(yaxes, fontsize=10)
@@ -99,18 +99,31 @@ def plt_plot(coal_year, coal_data, title, label, color, xaxes, yaxes):
     plt.show()
     return
 
-#declaring values for the function
-coal_data = [df_coal_transpose['Australia'],df_coal_transpose['Brazil'],df_coal_transpose['Colombia'],
+#declaring values for line plot of electricity production from coal sources.
+data = [df_coal_transpose['Australia'],df_coal_transpose['Brazil'],df_coal_transpose['Colombia'],
      df_coal_transpose['France'],df_coal_transpose['Japan'],df_coal_transpose['Mexico'],
      df_coal_transpose['Senegal'],df_coal_transpose['United Kingdom']]
-coal_year = df_coal_transpose.index
+year = df_coal_transpose.index
 title = "Electricity production from Coal Sources for each Country"
 label = ["AUS", "BRA", "COL", "FRA", "JPN", "MEX", "SEN", "GBR"]
 color = ['magenta','blue','green','yellow', 'black', 'purple', 'brown', 'red']
 xaxes = "Years"
 yaxes = "Coal electricity production rate"
 
-plt_plot(coal_year, coal_data, title, label, color, xaxes, yaxes)
+plt_plot(year, data, title, label, color, xaxes, yaxes)
+
+#Declaring values for line plot of electricity production from nuclear sources.
+data = [df_nuclear_transpose['Australia'],df_nuclear_transpose['Brazil'],df_nuclear_transpose['Colombia'],
+     df_nuclear_transpose['France'],df_nuclear_transpose['Japan'],df_nuclear_transpose['Mexico'],
+     df_nuclear_transpose['Senegal'],df_nuclear_transpose['United Kingdom']]
+year = df_nuclear_transpose.index
+title = "Electricity production from Nuclear Sources for each Country"
+label = ["AUS", "BRA", "COL", "FRA", "JPN", "MEX", "SEN", "GBR"]
+color = ['magenta','blue','green','yellow', 'black', 'purple', 'brown', 'red']
+xaxes = "Years"
+yaxes = "Nuclear electricity production rate"
+
+plt_plot(year, data, title, label, color, xaxes, yaxes)
 
 #A bar plot showing the access to electricity of each country from 2008 t0 2014
 plt.figure()
@@ -148,6 +161,7 @@ plt.xticks(fontsize=35)
 plt.legend(fontsize=24)
 plt.savefig('Elec Bar plot.png', dpi=300)
 plt.show()
+
 #A function called bar_chart_subplot using subplots to show electricity petroleum production rate of each country from 2008 to 2014
 def bar_chart_subplot(petrol_year,petrol_data, labels):
     ''' A function that produces a bar subplot to show the electricity production from petroleum sources of each country from 2008 to 2014
@@ -264,13 +278,12 @@ def corr_heatmap(data, title):
             title: The title to use for the plot.
     """
     corr = data.corr()
-    
-    sns.heatmap(senegal_corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True)
+    sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True)
     
     plt.title('Correlation heatmap of Senegal')
     plt.figure(figsize=(8,5))
     plt.savefig('Heatmap senegal.png')
     plt.show()
 
-#Declaring the heat map
+#plotting the heat map
 corr_heatmap(senegal_corr, title)
